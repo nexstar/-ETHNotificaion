@@ -1,0 +1,1 @@
+Mongo_info  = new Mongo.Collection("info");

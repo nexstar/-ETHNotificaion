@@ -1,1 +1,15 @@
+body {
+    font-family: 'Roboto', 'Noto Sans TC', Microsoft JhengHei, Helvetica, Arial, sans-serif !important;
+}
 
+.list-row {
+    background-color: #fff;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    /*border-bottom: 1px solid #b2b2b2;*/
+}
+
+a:focus, a:hover{
+	/*color: blue;*/
+	text-decoration: none;
+}
