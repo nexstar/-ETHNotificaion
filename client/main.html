@@ -58,49 +58,51 @@
 
 <!-- 登入 -->
 	<template name="page0">
-		<div style="height: 60px;"></div>
-		<div class="container">
-			<div class="col-xs-12 col-sm-12">
-				<h1 style="text-align: center;">Mine Ring</h1>
+		{{#if currentUser}}
+			<div class="container">
+				<div class="row" style="background-color: #d34615;color: #ffffff;">
+					<div class="col-xs-2 col-lg-2" style="text-align: center">
+						<!-- <i class="fa fa-chevron-left" aria-hidden="true" style="font-size: 20px;margin-top: 15%;"></i> -->
+					</div>
+					<div class="col-xs-8 col-lg-8" style="padding: 5px;text-align: center;font-size: 20px;">{{title}}</div>
+					<div class="col-xs-2 col-lg-2">
+						<a name="setting" href="#" style="color: #ffffff;"><i style="font-size: 25px;margin-top: 20%;margin-left: 10%;" class="fa fa-cog" aria-hidden="true"></i></a>
+					</div>
+				</div>
+				<div class="container" style="margin-top: 3%;">
+					<div class="row">
+						<div class="col-xs-10 col-lg-10" style="text-align: center;">
+							<input name="wallet" type="text" class="form-control" placeholder="錢包位置" style="text-align: center;padding: 2px;">
+						</div>
+						<div class="col-xs-2 col-lg-2" style="padding-left: 0;">
+							<button id="addbtn" class="btn btn-primary" style="padding: 2px 10px;">add</button>
+						</div>
+					</div>
+				</div>
 			</div>
-			<img width="100%" src="https://bitsonline.com/wp-content/uploads/2017/11/Ethereum-Classic-Logo.png">	
-			<div class="col-xs-12 col-sm-12" style="margin-top: 5%;">
-				<button name="fblogin" class="btn btn-block btn-primary">臉書登入</button>
+			{{> yield "bodyplugin"}}
+			<div style="height: 40px;"></div>
+			{{token}}
+		{{else}}
+			<div style="height: 60px;"></div>
+			<div class="container">
+				<div class="col-xs-12 col-sm-12">
+					<h1 style="text-align: center;">Mine Ring</h1>
+				</div>
+				<img width="100%" src="https://bitsonline.com/wp-content/uploads/2017/11/Ethereum-Classic-Logo.png">	
+				<div class="col-xs-12 col-sm-12" style="margin-top: 5%;">
+					<button name="fblogin" class="btn btn-block btn-primary">臉書登入</button>
+				</div>
+				<!-- <div class="col-xs-12 col-sm-12" style="margin-top: 5%;">
+					<button name="fblogout" class="btn btn-block btn-primary">臉書登出</button>
+				</div> -->
 			</div>
-			<!-- <div class="col-xs-12 col-sm-12" style="margin-top: 5%;">
-				<button name="fblogout" class="btn btn-block btn-primary">臉書登出</button>
-			</div> -->
-		</div>
-		{{closeLoading}}
+		{{/if}}
 	</template>
 
 <!-- 帳戶 -->
 	<template name="page1">
-		<div class="container">
-			<div class="row" style="background-color: #d34615;color: #ffffff;">
-				<div class="col-xs-2 col-lg-2" style="text-align: center">
-					<!-- <i class="fa fa-chevron-left" aria-hidden="true" style="font-size: 20px;margin-top: 15%;"></i> -->
-				</div>
-				<div class="col-xs-8 col-lg-8" style="padding: 5px;text-align: center;font-size: 20px;">{{title}}</div>
-				<div class="col-xs-2 col-lg-2">
-					<a name="setting" href="#" style="color: #ffffff;"><i style="font-size: 25px;margin-top: 20%;margin-left: 10%;" class="fa fa-cog" aria-hidden="true"></i></a>
-				</div>
-			</div>
-			<div class="container" style="margin-top: 3%;">
-				<div class="row">
-					<div class="col-xs-10 col-lg-10" style="text-align: center;">
-						<input name="wallet" type="text" class="form-control" placeholder="錢包位置" style="text-align: center;padding: 2px;">
-					</div>
-					<div class="col-xs-2 col-lg-2" style="padding-left: 0;">
-						<button id="addbtn" class="btn btn-primary" style="padding: 2px 10px;">add</button>
-					</div>
-				</div>
-			</div>
-		</div>
-		{{> yield "bodyplugin"}}
-		<div style="height: 40px;"></div>
-		<!-- {{> yield "footplugin"}} -->
-		{{token}}
+
 	</template>
 
 <!-- 帳戶列表 -->

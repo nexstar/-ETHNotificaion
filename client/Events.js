@@ -153,11 +153,11 @@ function gettype(data,type){
 	Template.set.events({
 		'click [name=exit]':(evt,tmp)=>{
 			evt.preventDefault();
-			Meteor.logout();
 			// let _id    = "ceDEzGn5QdTgT3WNF";
 			let _id    = Meteor.userId();
 			Meteor.call('infotokenupdate',_id);
-			Router.go('post.page0');
+			Meteor.logout();
+			Router.go('/page0');
 		},
 		'click [name=notifi]':(evt,tmp)=>{
 			evt.preventDefault();
@@ -168,51 +168,9 @@ function gettype(data,type){
 		},
 	});
 
+const _accountexist = "https://api.nanopool.org/v1/eth/accountexist/";
 // 登入
 	Template.page0.events({
-		'click [name=fblogin]':(evt,tmp)=>{
-			evt.preventDefault();
-			// Router.go('post.page1');
-			Meteor.loginWithFacebook({
-		        requestPermissions:[
-		          'public_profile','email',
-		          'user_friends','publish_actions']
-		    },
-		        function (err) {
-		          if (err) {
-		            console.log('Handle errors here: ', err);
-		          }else{
-	          		let _id   = Meteor.userId();
-					let _info = Mongo_info.findOne({PersonId:_id});
-					if((String(_info)=="undefined")){
-						Meteor.call('CheckUser',_id);
-					}
-		          	Router.go('post.page1');
-		          }
-		        }
-		    );
-		},
-		// 'click [name=fblogout]':(evt,tmp)=>{
-		// 	evt.preventDefault();
-		// 	Meteor.call('port',(err,res)=>{
-		// 		alert(res);
-		// 	});
-		// 	Meteor.logout();
-		// },
-	});
-
-
-const _accountexist = "https://api.nanopool.org/v1/eth/accountexist/";
-function getJsonLength(jsonData){
-	var jsonLength = 0;
-	for(var item in jsonData){
-		jsonLength++;
-	}
-	return jsonLength;
-}
-
-// 帳戶頁面
-	Template.page1.events({
 		'click [name=setting]':(evt,tmp)=>{
 			evt.preventDefault();
 			Router.go('post.set');
@@ -251,7 +209,26 @@ function getJsonLength(jsonData){
 				window.plugins.spinnerDialog.hide();
 			}
 			$('[name=wallet]').val('');
-		}
+		},
+		'click [name=fblogin]':(evt,tmp)=>{
+			evt.preventDefault();
+			Meteor.loginWithFacebook({
+		        requestPermissions:[
+		          'public_profile','email',
+		          'user_friends','publish_actions']
+		    },
+		        function (err) {
+		          if (err) {
+		            console.log('Handle errors here: ', err);
+		          }else{
+	          		let _id   = Meteor.userId();
+					let _info = Mongo_info.findOne({PersonId:_id});
+					if((String(_info)=="undefined")){
+						Meteor.call('CheckUser',_id);
+					}
+		          	// Router.go('post.page1');
+		          }
+		        }
+		    );
+		},
 	});
-
-

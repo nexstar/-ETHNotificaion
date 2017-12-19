@@ -17,7 +17,6 @@ import './Helpers.js';
 		},
 		yieldRegions: {
 		   'paymentlist': {to: 'paymentbodyplugin'}
-		  // 'footlist': {to: 'footplugin'}
 		},
 	});
 
@@ -34,24 +33,6 @@ import './Helpers.js';
 		},
 		yieldRegions: {
 		   'workerlist': {to: 'workerbodyplugin'}
-		  // 'footlist': {to: 'footplugin'}
-		},
-	});
-
-// act
-	Router.route('/page1', {
-		// onBeforeAction:function(){
-		// 	window.plugins.spinnerDialog.show("", "載入中...",true);
-		// 	this.next();
-		// },
-		name: 'post.page1',
-		layoutTemplate: 'page1',
-		data: {
-			title: '乙太幣帳戶',
-		},
-		yieldRegions: {
-		   'Actlist': {to: 'bodyplugin'}
-		  // 'footlist': {to: 'footplugin'}
 		},
 	});
 
@@ -62,21 +43,16 @@ import './Helpers.js';
 		data: {
 			title: '設定',
 		},
-		// yieldRegions: {
-		//    'Actlist': {to: 'bodyplugin'},
-		//   'footlist': {to: 'footplugin'}
-		// },
 	});
 
 // 首頁
 	Router.route('/', {
 		name: 'post.page0',
 		layoutTemplate: 'page0',
-		// data: {
-		// 	title: '消費明細',
-		// },
-		// yieldRegions: {
-		//   'page': {to: 'plugin'}
-		//   // 'accountplugin': {to: 'ftplugin'}
-		// },
+		data: {
+			title: '乙太幣帳戶',
+		},
+		yieldRegions: {
+		   'Actlist': {to: 'bodyplugin'}
+		},
 	});

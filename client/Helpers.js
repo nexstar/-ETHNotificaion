@@ -85,8 +85,8 @@ Template.Actlist.helpers({
 	},
 });
 
-//帳戶頁面
-Template.page1.helpers({
+// 登入畫面
+Template.page0.helpers({
 	token(){
 		FCMPlugin.getToken(function (token){
 			let devicePlatform = device.platform;
@@ -96,4 +96,10 @@ Template.page1.helpers({
 		});
 		window.plugins.spinnerDialog.hide();
 	},
+});
+
+
+//帳戶頁面
+Template.page1.helpers({
+	
 });
