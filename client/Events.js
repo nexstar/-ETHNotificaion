@@ -253,3 +253,5 @@ function getJsonLength(jsonData){
 			$('[name=wallet]').val('');
 		}
 	});
+
+

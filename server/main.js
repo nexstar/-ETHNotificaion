@@ -38,10 +38,15 @@ Meteor.startup(() => {
     Fiber(function(){
       let _info         = Mongo_info.find({}).fetch();
       let _length       = _info.length
+      console.log(_length);
+      console.log("-------------");
       for(var i=0;i<_length;i++){
         let _pid        = _info[i].PersonId;
         let _token      = _info[i].token;
         let _notifi     = _info[i].notifi;
+      
+        console.log(i);
+        console.log("-------------");
         for(var j=0;j<_info[i].account.length;j++){
           let _cion       = parseFloat(_info[i].account[j].cion);
           let _as         = _info[i].account[j].as;
@@ -49,69 +54,76 @@ Meteor.startup(() => {
           let _path       = "account."+j;
           let _cionpath   = _path+".cion";
 
-          try{
-            HTTP.call('GET', _url,(err,res)=>{
-              if(res=="null"){
-                console.log('=====');
-                payload.notification.body = "錢包異常注意！！"+AddSpace();
-                _firebaseadmin.messaging().sendToDevice(_token, payload, options); 
-              }else{
-                let _view   = res.data;
-                try{
-                  if(_view!="null"){
-                    if(_view.data!="undefined"){
-                      let _gCion  = parseFloat(_view.data.balance);
+          console.log(_as);
+          console.log(_cion);
+          console.log(_cionpath);
+
+          
+          // try{
+          //   HTTP.call('GET', _url,(err,res)=>{
+          //     if(res=="null"){
+          //       console.log('=====');
+          //       payload.notification.body = "錢包異常注意！！"+AddSpace();
+          //       _firebaseadmin.messaging().sendToDevice(_token, payload, options); 
+          //     }else{
+          //       let _view   = res.data;
+          //       try{
+          //         if(_view!="null"){
+          //           if(_view.data!="undefined"){
+          //             let _gCion  = parseFloat(_view.data.balance);
                       
-                      try{
-                        Mongo_info.update({
-                          PersonId:_pid
-                        },{
-                          $set:{
-                             [_cionpath]:parseFloat(_gCion)
-                          }
-                        });
-                      }catch(ex){}
+          //             try{
+          //               Mongo_info.update({
+          //                 PersonId:_pid
+          //               },{
+          //                 $set:{
+          //                    [_cionpath]:parseFloat(_gCion)
+          //                 }
+          //               });
+          //             }catch(ex){}
 
-                      if(_gCion > _cion){
-                        let _differ = (_gCion-_cion).toFixed(8);
+          //             if(_gCion > _cion){
+          //               let _differ = (_gCion-_cion).toFixed(8);
                         
-                        let _money      = "";
-                        let GetSpace    = AddSpace();
+          //               let _money      = "";
+          //               let GetSpace    = AddSpace();
                         
-                        _money += _as+"目前累積: " + _gCion+GetSpace;
-                        _money += "此幣挖到含量: " + _differ+GetSpace;
+          //               _money += _as+"目前累積: " + _gCion+GetSpace;
+          //               _money += "此幣挖到含量: " + _differ+GetSpace;
 
-                        payload.notification.body = _money;
+          //               payload.notification.body = _money;
                         
-                        try{
-                          if(_notifi==="1"){
-                            if(_token!="null"){
-                                // console.log('終於挖到...'+_differ);
-                                _firebaseadmin.messaging().sendToDevice(_token, payload, options);
-                            }else{}
-                          }else{}
-                        }catch(ex){}
+          //               try{
+          //                 if(_notifi==="1"){
+          //                   if(_token!="null"){
+          //                       // console.log('終於挖到...'+_differ);
+          //                       _firebaseadmin.messaging().sendToDevice(_token, payload, options);
+          //                   }else{}
+          //                 }else{}
+          //               }catch(ex){}
 
-                      }else{
-                        console.log("小於");
-                      }
+          //             }else{
+          //               console.log("小於");
+          //             }
 
-                    }else{}
+          //           }else{}
 
-                  }else{
-                    console.log("IF API有狀況...");
-                  }
-                }catch(ex){
-                  console.log("TryCatch API有狀況...");
-                }
-              }
-            });
-          }catch(ex){}
+          //         }else{
+          //           console.log("IF API有狀況...");
+          //         }
+          //       }catch(ex){
+          //         console.log("TryCatch API有狀況...");
+          //       }
+          //     }
+          //   });
+          // }catch(ex){}
           // sleep.sleep(1);
+
         }
       }
+      console.log("----END-----");
     }).run();
-  },15000);
+  },10000);
 
 // Service 臉書系統
   ServiceConfiguration.configurations.remove({
